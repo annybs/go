@@ -24,7 +24,7 @@ func TestIn(t *testing.T) {
 	for _, tc := range strTestCases {
 		t.Logf("%q in %s", tc.Input, strings.Join(tc.S, ", "))
 
-		f := In(tc.S)
+		f := In(tc.S...)
 		err := f(tc.Input)
 
 		if tc.Err {
@@ -53,7 +53,7 @@ func TestIn(t *testing.T) {
 		}
 		t.Logf("%d in %s", tc.Input, strings.Join(intf, ", "))
 
-		f := In(tc.S)
+		f := In(tc.S...)
 		err := f(tc.Input)
 
 		if tc.Err {

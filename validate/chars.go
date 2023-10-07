@@ -1,8 +1,13 @@
 package validate
 
 import (
-	"fmt"
+	"errors"
 	"strings"
+)
+
+// Validation error.
+var (
+	ErrDisallowedChars = errors.New("contains disallowed characters")
 )
 
 // Chars validates whether a string contains only allowed characters.
@@ -11,7 +16,7 @@ func Chars(allow string) func(string) error {
 		rs := []rune(value)
 		for _, r := range rs {
 			if !strings.ContainsRune(allow, r) {
-				return fmt.Errorf("Contains disallowed characters")
+				return ErrDisallowedChars
 			}
 		}
 		return nil

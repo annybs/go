@@ -2,26 +2,27 @@ package validate
 
 import "testing"
 
-func TestInvalidEmail(t *testing.T) {
-	valid := []string{
-		"testexample.com",
+func TestEmail(t *testing.T) {
+	type TestCase struct {
+		Input string
+		Err   bool
 	}
 
-	for _, email := range valid {
-		if err := Email(email); err == nil {
-			t.Errorf("%s is not a valid email", email)
-		}
-	}
-}
-
-func TestValidEmail(t *testing.T) {
-	valid := []string{
-		"test@example.com",
+	testCases := []TestCase{
+		{Input: "test@example.com"},
+		{Input: "testexample.com", Err: true},
 	}
 
-	for _, email := range valid {
-		if err := Email(email); err != nil {
-			t.Errorf("%s is a valid email", email)
+	for _, testCase := range testCases {
+		err := Email(testCase.Input)
+		if testCase.Err {
+			if err == nil {
+				t.Errorf("Expected %q to be an invalid email; got nil", testCase.Input)
+			}
+		} else {
+			if err != nil {
+				t.Errorf("Expected %q to be a valid email; got %s", testCase.Input, err)
+			}
 		}
 	}
 }

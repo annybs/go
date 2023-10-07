@@ -18,15 +18,15 @@ func TestUUID(t *testing.T) {
 		{Input: "01234567-89ab-cdef-ghij-klmnopqrstuv", Err: true},
 	}
 
-	for _, testCase := range testCases {
-		err := UUID(testCase.Input)
-		if testCase.Err {
+	for _, tc := range testCases {
+		err := UUID(tc.Input)
+		if tc.Err {
 			if err == nil {
-				t.Errorf("Expected %q to be an invalid UUID; got nil", testCase.Input)
+				t.Errorf("Expected %q to be an invalid UUID; got nil", tc.Input)
 			}
 		} else {
 			if err != nil {
-				t.Errorf("Expected %q to be a valid UUID; got %s", testCase.Input, err)
+				t.Errorf("Expected %q to be a valid UUID; got %s", tc.Input, err)
 			}
 		}
 	}

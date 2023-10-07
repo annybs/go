@@ -27,24 +27,24 @@ RETURN doc`,
 		},
 	}
 
-	for _, testCase := range testCases {
-		actualStr := testCase.Input.String()
+	for _, tc := range testCases {
+		actualStr := tc.Input.String()
 
-		if actualStr != testCase.ExpectedStr {
-			t.Logf("Expected: %q", testCase.ExpectedStr)
+		if actualStr != tc.ExpectedStr {
+			t.Logf("Expected: %q", tc.ExpectedStr)
 			t.Logf("Actual: %q", actualStr)
 			t.Fail()
 		}
 
-		if len(testCase.Input.Params) != len(testCase.ExpectedParams) {
-			t.Errorf("Expected %d parameters; got %d", len(testCase.ExpectedParams), len(testCase.Input.Params))
+		if len(tc.Input.Params) != len(tc.ExpectedParams) {
+			t.Errorf("Expected %d parameters; got %d", len(tc.ExpectedParams), len(tc.Input.Params))
 		}
 
-		for name, value := range testCase.ExpectedParams {
-			if testCase.Input.Params[name] == nil {
+		for name, value := range tc.ExpectedParams {
+			if tc.Input.Params[name] == nil {
 				t.Errorf("Expected parameter %q to be %q; got nil", name, value)
-			} else if testCase.Input.Params[name] != value {
-				t.Errorf("Expected parameter %q to be %q; got %q", name, value, testCase.Input.Params[name])
+			} else if tc.Input.Params[name] != value {
+				t.Errorf("Expected parameter %q to be %q; got %q", name, value, tc.Input.Params[name])
 			}
 		}
 	}

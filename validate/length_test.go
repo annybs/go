@@ -16,12 +16,12 @@ func TestMaxLength(t *testing.T) {
 		{L: 8, Input: "abcdefghi", Err: true},
 	}
 
-	for _, testCase := range testCases {
-		t.Logf("Max length %d for %q", testCase.L, testCase.Input)
+	for _, tc := range testCases {
+		t.Logf("Max length %d for %q", tc.L, tc.Input)
 
-		f := MaxLength(testCase.L)
-		err := f(testCase.Input)
-		if testCase.Err {
+		f := MaxLength(tc.L)
+		err := f(tc.Input)
+		if tc.Err {
 			if err == nil {
 				t.Error("Expected an error; got nil")
 			}
@@ -47,12 +47,12 @@ func TestMinLength(t *testing.T) {
 		{L: 8, Input: "abcdefghi"},
 	}
 
-	for _, testCase := range testCases {
-		t.Logf("Min length %d for %q", testCase.L, testCase.Input)
+	for _, tc := range testCases {
+		t.Logf("Min length %d for %q", tc.L, tc.Input)
 
-		f := MinLength(testCase.L)
-		err := f(testCase.Input)
-		if testCase.Err {
+		f := MinLength(tc.L)
+		err := f(tc.Input)
+		if tc.Err {
 			if err == nil {
 				t.Error("Expected an error; got nil")
 			}

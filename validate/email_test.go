@@ -13,15 +13,15 @@ func TestEmail(t *testing.T) {
 		{Input: "testexample.com", Err: true},
 	}
 
-	for _, testCase := range testCases {
-		err := Email(testCase.Input)
-		if testCase.Err {
+	for _, tc := range testCases {
+		err := Email(tc.Input)
+		if tc.Err {
 			if err == nil {
-				t.Errorf("Expected %q to be an invalid email; got nil", testCase.Input)
+				t.Errorf("Expected %q to be an invalid email; got nil", tc.Input)
 			}
 		} else {
 			if err != nil {
-				t.Errorf("Expected %q to be a valid email; got %s", testCase.Input, err)
+				t.Errorf("Expected %q to be a valid email; got %s", tc.Input, err)
 			}
 		}
 	}

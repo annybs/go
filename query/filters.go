@@ -19,7 +19,7 @@ var filterRegexp = regexp.MustCompile("^([A-z0-9]+) (eq|neq|gt|gte|lt|lte|in|not
 
 // Filter represents a filter as used in, most likely, a database query.
 type Filter struct {
-	Field    string `json:"field"`    // The field to filter.
+	Field    string `json:"field"`    // Field to filter on.
 	Operator string `json:"operator"` // Filter operator, e.g. eq, gt...
 	Value    string `json:"value"`    // Value to filter by.
 }
@@ -69,7 +69,7 @@ func ReadFilters(values url.Values, opt *ReadFilterOptions) ([]Filter, error) {
 	}
 
 	filters := []Filter{}
-	for _, filterStr := range values["filter"] {
+	for _, filterStr := range values[opt.Key] {
 		match := filterRegexp.FindStringSubmatch(filterStr)
 		if match == nil {
 			return nil, ErrInvalidFilter

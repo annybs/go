@@ -2,7 +2,6 @@ package query
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -43,10 +42,6 @@ func (filter Filter) Float64Value() (float64, error) {
 // IntValue retrieves the filter value as an int.
 func (filter Filter) IntValue() (int, error) {
 	return strconv.Atoi(filter.Value)
-}
-
-func (filter Filter) String() string {
-	return fmt.Sprintf("%s %s %s", filter.Field, filter.Operator, filter.Value)
 }
 
 // ReadFilterOptions configures the behaviour of ReadFilters.

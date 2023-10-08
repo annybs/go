@@ -35,7 +35,7 @@ func TestReadPagination(t *testing.T) {
 		pag, err := ReadStringPagination(tc.Input, tc.Opt)
 
 		if err != tc.Err {
-			t.Errorf("Expected error %v; got %v", tc.Err, err)
+			t.Errorf("Expected error %v, got %v", tc.Err, err)
 			continue
 		}
 
@@ -44,7 +44,7 @@ func TestReadPagination(t *testing.T) {
 		}
 
 		if *pag != *tc.Output {
-			t.Errorf("Expected %+v; got %+v", tc.Output, pag)
+			t.Errorf("Expected %+v, got %+v", tc.Output, pag)
 		}
 	}
 }

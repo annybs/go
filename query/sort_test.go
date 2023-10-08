@@ -5,11 +5,13 @@ import "testing"
 func TestReadSorts(t *testing.T) {
 	type TestCase struct {
 		Input  string
+		Opt    *ReadSortOptions
 		Output []Sort
-		Err    bool
+		Err    error
 	}
 
 	testCases := []TestCase{
+		{Input: ""},
 		{
 			Input: "sort=title asc",
 			Output: []Sort{
@@ -26,28 +28,33 @@ func TestReadSorts(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		t.Logf("%q", tc.Input)
+		t.Logf("Testing %q with options %+v", tc.Input, tc.Opt)
 
 		sorts, err := ReadStringSorts(tc.Input, nil)
-		if tc.Err {
-			if err == nil {
-				t.Fatal("Expected error; got nil")
-			}
-		} else {
-			if err != nil {
-				t.Fatalf("Expected no error; got %s", err)
-			}
+
+		if err != tc.Err {
+			t.Errorf("Expected error %v, got %v", tc.Err, err)
+			break
 		}
 
+		if tc.Err != nil {
+			break
+		}
+
+		if tc.Output == nil && sorts != nil {
+			t.Error("Expected nil")
+			break
+		}
 		if len(sorts) != len(tc.Output) {
 			t.Errorf("Expected %d sorts, got %d", len(tc.Output), len(sorts))
 		}
+
 		for i, sort := range tc.Output {
 			if i == len(sorts) {
 				break
 			}
 			if sort != sorts[i] {
-				t.Errorf("Expected sort %d to be %q, got %q", i, sort, sorts[i])
+				t.Errorf("Expected %+v for sort %d, got %+v", sort, i, sorts[i])
 			}
 		}
 	}

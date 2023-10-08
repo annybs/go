@@ -5,11 +5,13 @@ import "testing"
 func TestReadFilters(t *testing.T) {
 	type TestCase struct {
 		Input  string
+		Opt    *ReadFilterOptions
 		Output []Filter
-		Err    bool
+		Err    error
 	}
 
 	testCases := []TestCase{
+		{Input: ""},
 		{
 			Input: "filter=title eq Spaghetti",
 			Output: []Filter{
@@ -26,28 +28,33 @@ func TestReadFilters(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		t.Logf("%q", tc.Input)
+		t.Logf("Testing %q with options %+v", tc.Input, tc.Opt)
 
 		filters, err := ReadStringFilters(tc.Input, nil)
-		if tc.Err {
-			if err == nil {
-				t.Fatal("Expected error; got nil")
-			}
-		} else {
-			if err != nil {
-				t.Fatalf("Expected no error; got %s", err)
-			}
+
+		if err != tc.Err {
+			t.Errorf("Expected error %v, got %v", tc.Err, err)
+			break
 		}
 
+		if tc.Err != nil {
+			break
+		}
+
+		if tc.Output == nil && filters != nil {
+			t.Error("Expected nil")
+			break
+		}
 		if len(filters) != len(tc.Output) {
 			t.Errorf("Expected %d filters, got %d", len(tc.Output), len(filters))
 		}
+
 		for i, filter := range tc.Output {
 			if i == len(filters) {
 				break
 			}
 			if filter != filters[i] {
-				t.Errorf("Expected filter %d to be %q, got %q", i, filter, filters[i])
+				t.Errorf("Expected %+v for filter %d, got %+v", filter, i, filters[i])
 			}
 		}
 	}

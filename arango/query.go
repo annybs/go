@@ -68,7 +68,7 @@ func (query *Query) String() string {
 	return strings.Join(query.Lines, "\n")
 }
 
-// NewQuery creates a new Query.
+// NewQuery creates a new, empty Query.
 func NewQuery() *Query {
 	return &Query{
 		Lines:  []string{},

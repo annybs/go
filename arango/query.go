@@ -1,6 +1,7 @@
 package arango
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -34,6 +35,18 @@ func (query *Query) Append(line string, values ...any) *Query {
 
 	query.Lines = append(query.Lines, line)
 	return query.BindMap(params)
+}
+
+// Appendf adds a line to the query, replacing values directly into the string using standard formatting syntax.
+// This is a shorthand for:
+//
+//	// query *Query
+//	query.Append(fmt.Sprintf("my format (%s)", "example"))
+//
+// This method does not attach values to bind parameters.
+func (query *Query) Appendf(line string, a ...any) *Query {
+	line = fmt.Sprintf(line, a...)
+	return query.Append(line)
 }
 
 // Bind binds a value to a bind parameter.

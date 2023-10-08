@@ -77,6 +77,16 @@ RETURN doc`,
 				"title":      "Spaghetti",
 			},
 		},
+		// Append and Appendf
+		{
+			Input: NewQuery().
+				Appendf("FOR doc IN %s FILTER doc.title == @title RETURN doc", "recipes").
+				Bind("title", "Spaghetti"),
+			ExpectedStr: `FOR doc IN recipes FILTER doc.title == @title RETURN doc`,
+			ExpectedParams: map[string]any{
+				"title": "Spaghetti",
+			},
+		},
 	}
 
 	for n, tc := range testCases {

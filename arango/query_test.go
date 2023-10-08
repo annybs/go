@@ -12,6 +12,17 @@ func TestQueryAppend(t *testing.T) {
 	}
 
 	testCases := []TestCase{
+		// Append without parameters
+		{
+			Input: NewQuery().
+				Append("FOR doc IN @@collection").
+				Append("FILTER doc.title == @title").
+				Append("RETURN doc"),
+			ExpectedStr: `FOR doc IN @@collection
+FILTER doc.title == @title
+RETURN doc`,
+			ExpectedParams: map[string]any{},
+		},
 		// Append with parameters
 		{
 			Input: NewQuery().
@@ -40,7 +51,7 @@ RETURN doc`,
 				"title":      "Spaghetti",
 			},
 		},
-		// Append and bind
+		// Append without parameters and bind after
 		{
 			Input: NewQuery().
 				Append("FOR doc IN @@collection").

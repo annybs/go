@@ -31,6 +31,7 @@ func TestReadParams(t *testing.T) {
 			t.Errorf("Expected empty slice, got nil")
 			continue
 		}
+
 		if len(params) != len(tc.Output) {
 			t.Errorf("Expected %d parameters", len(tc.Output))
 		}

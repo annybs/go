@@ -34,17 +34,16 @@ func TestReadSorts(t *testing.T) {
 
 		if err != tc.Err {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
-			break
 		}
-
 		if tc.Err != nil {
-			break
+			continue
 		}
 
 		if tc.Output == nil && sorts != nil {
 			t.Error("Expected nil")
-			break
+			continue
 		}
+
 		if len(sorts) != len(tc.Output) {
 			t.Errorf("Expected %d sorts, got %d", len(tc.Output), len(sorts))
 		}

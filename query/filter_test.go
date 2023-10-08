@@ -34,17 +34,16 @@ func TestReadFilters(t *testing.T) {
 
 		if err != tc.Err {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
-			break
 		}
-
 		if tc.Err != nil {
-			break
+			continue
 		}
 
 		if tc.Output == nil && filters != nil {
 			t.Error("Expected nil")
-			break
+			continue
 		}
+
 		if len(filters) != len(tc.Output) {
 			t.Errorf("Expected %d filters, got %d", len(tc.Output), len(filters))
 		}

@@ -27,8 +27,8 @@ func TestReadFilters(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q with options %+v", tc.Input, tc.Opt)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q with options %+v", n, tc.Input, tc.Opt)
 
 		filters, err := ReadStringFilters(tc.Input, nil)
 

@@ -16,8 +16,8 @@ func TestMaxLength(t *testing.T) {
 		{Input: "abcdefghi", L: 8, Err: ErrTooManyChars},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q against maximum length of %d", tc.Input, tc.L)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q against maximum length of %d", n, tc.Input, tc.L)
 
 		f := MaxLength(tc.L)
 		err := f(tc.Input)
@@ -42,8 +42,8 @@ func TestMinLength(t *testing.T) {
 		{Input: "abcdefghi", L: 8},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q against minimum length of %d", tc.Input, tc.L)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q against minimum length of %d", n, tc.Input, tc.L)
 
 		f := MinLength(tc.L)
 		err := f(tc.Input)

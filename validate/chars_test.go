@@ -16,8 +16,8 @@ func TestChars(t *testing.T) {
 		{Input: "abcd 1234", C: hexRange, Err: ErrDisallowedChars},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q against %q", tc.Input, tc.C)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q against %q", n, tc.Input, tc.C)
 
 		f := Chars(tc.C)
 		err := f(tc.Input)

@@ -26,8 +26,8 @@ func TestAll(t *testing.T) {
 		{Input: "01abcd", F: f, Err: ErrValueNotAllowed},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q", tc.Input)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q", n, tc.Input)
 
 		err := tc.F(tc.Input)
 

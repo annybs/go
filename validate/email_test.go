@@ -13,8 +13,8 @@ func TestEmail(t *testing.T) {
 		{Input: "testexample.com", Err: ErrInvalidEmail},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q", tc.Input)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q", n, tc.Input)
 
 		err := Email(tc.Input)
 

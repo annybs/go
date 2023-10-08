@@ -18,8 +18,8 @@ func TestUUID(t *testing.T) {
 		{Input: "01234567-89ab-cdef-ghij-klmnopqrstuv", Err: ErrInvalidUUID},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q", tc.Input)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q", n, tc.Input)
 
 		err := UUID(tc.Input)
 

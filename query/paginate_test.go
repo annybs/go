@@ -29,8 +29,8 @@ func TestReadPagination(t *testing.T) {
 		{Input: "limit=5&page=ghi", Err: ErrInvalidPage},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %q with options %+v", tc.Input, tc.Opt)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %q with options %+v", n, tc.Input, tc.Opt)
 
 		pag, err := ReadStringPagination(tc.Input, tc.Opt)
 

@@ -79,8 +79,8 @@ RETURN doc`,
 		},
 	}
 
-	for _, tc := range testCases {
-		t.Logf("Testing %+v", tc.Input)
+	for n, tc := range testCases {
+		t.Logf("(%d) Testing %+v", n, tc.Input)
 
 		actualStr := tc.Input.String()
 

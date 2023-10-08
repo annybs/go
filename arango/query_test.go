@@ -12,15 +12,10 @@ func TestQueryAppend(t *testing.T) {
 	}
 
 	testCases := []TestCase{
-		// Append without parameters
+		// Initialise empty query
 		{
-			Input: NewQuery().
-				Append("FOR doc IN @@collection").
-				Append("FILTER doc.title == @title").
-				Append("RETURN doc"),
-			ExpectedStr: `FOR doc IN @@collection
-FILTER doc.title == @title
-RETURN doc`,
+			Input:          NewQuery(),
+			ExpectedStr:    "",
 			ExpectedParams: map[string]any{},
 		},
 		// Append with parameters
@@ -93,6 +88,10 @@ RETURN doc`,
 			t.Errorf("Expected %q, got %q", tc.ExpectedStr, actualStr)
 		}
 
+		if tc.Input.Params == nil {
+			t.Error("Expected empty slice, got nil")
+			continue
+		}
 		if len(tc.Input.Params) != len(tc.ExpectedParams) {
 			t.Errorf("Expected %d parameters, got %d", len(tc.ExpectedParams), len(tc.Input.Params))
 		}

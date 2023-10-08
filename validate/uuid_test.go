@@ -5,29 +5,26 @@ import "testing"
 func TestUUID(t *testing.T) {
 	type TestCase struct {
 		Input string
-		Err   bool
+		Err   error
 	}
 
 	testCases := []TestCase{
 		{Input: "00000000-0000-0000-0000-000000000000"},
 		{Input: "01234567-89ab-cdef-0123-456789abcdef"},
 		{Input: "abcdef01-2345-6789-abcd-ef0123456789"},
-		{Input: "Not a UUID", Err: true},
-		{Input: "00000000-00-0000-0000-00000000000000", Err: true},
-		{Input: "00000000000000000000000000000000", Err: true},
-		{Input: "01234567-89ab-cdef-ghij-klmnopqrstuv", Err: true},
+		{Input: "Not a UUID", Err: ErrInvalidUUID},
+		{Input: "00000000-00-0000-0000-00000000000000", Err: ErrInvalidUUID},
+		{Input: "00000000000000000000000000000000", Err: ErrInvalidUUID},
+		{Input: "01234567-89ab-cdef-ghij-klmnopqrstuv", Err: ErrInvalidUUID},
 	}
 
 	for _, tc := range testCases {
+		t.Logf("Testing %q", tc.Input)
+
 		err := UUID(tc.Input)
-		if tc.Err {
-			if err == nil {
-				t.Errorf("Expected %q to be an invalid UUID; got nil", tc.Input)
-			}
-		} else {
-			if err != nil {
-				t.Errorf("Expected %q to be a valid UUID; got %s", tc.Input, err)
-			}
+
+		if err != tc.Err {
+			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}
 }

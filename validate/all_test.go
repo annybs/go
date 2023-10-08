@@ -27,20 +27,12 @@ func TestAll(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		t.Logf("%q", tc.Input)
+		t.Logf("Testing %q", tc.Input)
 
 		err := tc.F(tc.Input)
-		if tc.Err != nil {
-			if err == nil {
-				t.Errorf("Expected %s; got nil", tc.Err)
-			}
-			if err != tc.Err {
-				t.Errorf("Expected %s; got %s", tc.Err, err)
-			}
-		} else {
-			if err != nil {
-				t.Errorf("Expected nil; got %s", err)
-			}
+
+		if err != tc.Err {
+			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}
 }

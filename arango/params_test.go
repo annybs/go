@@ -10,25 +10,37 @@ func TestReadParams(t *testing.T) {
 
 	testCases := []TestCase{
 		{
+			Input: "FOR doc IN recipes FILTER doc.title == \"Spaghetti\" RETURN doc",
+		},
+		{
+			Input:  "FOR doc IN recipes FILTER doc.title == @title RETURN doc",
+			Output: []string{"title"},
+		},
+		{
 			Input:  "FOR doc IN @@collection FILTER doc.title == @title RETURN doc",
 			Output: []string{"collection", "title"},
 		},
 	}
 
 	for _, tc := range testCases {
-		t.Log("Input:", tc.Input)
-		t.Log("Expected output:", tc.Output)
+		t.Logf("Testing %q", tc.Input)
 
 		params := ReadParams(tc.Input)
 
+		if params == nil {
+			t.Errorf("Expected empty slice, got nil")
+			continue
+		}
 		if len(params) != len(tc.Output) {
 			t.Errorf("Expected %d parameters", len(tc.Output))
-			break
 		}
 
 		for i, name := range tc.Output {
-			if params[i] != name {
-				t.Errorf("Expected parameter %d to be %q", i, name)
+			if i == len(params) {
+				break
+			}
+			if name != params[i] {
+				t.Errorf("Expected %s for parameter %d, got %s", name, i, params[i])
 			}
 		}
 	}

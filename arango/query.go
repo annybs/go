@@ -25,7 +25,7 @@ func (query *Query) Append(line string, values ...any) *Query {
 	if len(names) > 0 {
 		params = map[string]any{}
 		for i, name := range names {
-			if i > len(values) {
+			if i == len(values) {
 				break
 			}
 			params[name] = values[i]
@@ -33,17 +33,17 @@ func (query *Query) Append(line string, values ...any) *Query {
 	}
 
 	query.Lines = append(query.Lines, line)
-	return query.AssignMap(params)
+	return query.BindMap(params)
 }
 
-// Assign assigns a value to a single bind parameter.
-func (query *Query) Assign(name string, value any) *Query {
+// Bind binds a value to a bind parameter.
+func (query *Query) Bind(name string, value any) *Query {
 	query.Params[name] = value
 	return query
 }
 
-// AssignMap assigns values to bind parameters.
-func (query *Query) AssignMap(params map[string]any) *Query {
+// BindMap assigns values to bind parameters.
+func (query *Query) BindMap(params map[string]any) *Query {
 	if params != nil {
 		for name, value := range params {
 			query.Params[name] = value
@@ -62,16 +62,6 @@ func (query *Query) Copy() *Query {
 		newQuery.Params[name] = value
 	}
 	return newQuery
-}
-
-// L (for "Line") is a shorthand for Append.
-func (query *Query) L(line string, values ...any) *Query {
-	return query.Append(line, values...)
-}
-
-// P (for "Parameter") is a shorthand for Assign.
-func (query *Query) P(name string, value any) *Query {
-	return query.Assign(name, value)
 }
 
 func (query *Query) String() string {

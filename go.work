@@ -4,6 +4,7 @@ use (
 	./arango
 	./hash
 	./query
+	./random
 	./rest
 	./validate
 )

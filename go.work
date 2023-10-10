@@ -2,6 +2,7 @@ go 1.21.2
 
 use (
 	./arango
+	./hash
 	./query
 	./rest
 	./validate

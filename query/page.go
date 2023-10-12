@@ -8,8 +8,8 @@ import (
 // Page represents a combination of pagination, filter and sort parameters for, most likely, a database query.
 type Page struct {
 	Pagination *Pagination `json:"pagination"`
-	Filters    []Filter    `json:"filters,omitempty"`
-	Sorts      []Sort      `json:"sorts,omitempty"`
+	Filters    Filters     `json:"filters,omitempty"`
+	Sorts      Sorts       `json:"sorts,omitempty"`
 }
 
 // ReadPageOptions configures the behaviour of ReadPage.

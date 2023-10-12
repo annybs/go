@@ -44,6 +44,45 @@ func (filter Filter) IntValue() (int, error) {
 	return strconv.Atoi(filter.Value)
 }
 
+// Filters is a slice of Filter structs.
+type Filters []Filter
+
+// Field returns a new Filters slice containing only filters for the specified field.
+// The original order of filters is preserved.
+func (filters Filters) Field(field string) Filters {
+	ff := Filters{}
+	for _, filter := range filters {
+		if filter.Field == field {
+			ff = append(ff, filter)
+		}
+	}
+	return ff
+}
+
+// Fields returns a new Filters slice containing filters for any of the specified fields.
+// The original order of filters is preserved.
+func (filters Filters) Fields(fields ...string) Filters {
+	ff := Filters{}
+	for _, filter := range filters {
+		for _, field := range fields {
+			if filter.Field == field {
+				ff = append(ff, filter)
+			}
+		}
+	}
+	return ff
+}
+
+// HasField returns true if the Filters slice includes any filters for the specified field.
+func (filters Filters) HasField(field string) bool {
+	for _, filter := range filters {
+		if filter.Field == field {
+			return true
+		}
+	}
+	return false
+}
+
 // ReadFiltersOptions configures the behaviour of ReadFilters.
 type ReadFiltersOptions struct {
 	Key        string // Query string key. The default value is "filter"
@@ -52,7 +91,7 @@ type ReadFiltersOptions struct {
 
 // ReadFilters parses URL values into a slice of filters.
 // This function returns nil if no filters are found.
-func ReadFilters(values url.Values, opt *ReadFiltersOptions) ([]Filter, error) {
+func ReadFilters(values url.Values, opt *ReadFiltersOptions) (Filters, error) {
 	opt = initFiltersOptions(opt)
 
 	if !values.Has(opt.Key) {
@@ -63,7 +102,7 @@ func ReadFilters(values url.Values, opt *ReadFiltersOptions) ([]Filter, error) {
 		return nil, ErrTooManyFilters
 	}
 
-	filters := []Filter{}
+	filters := Filters{}
 	for _, filterStr := range values[opt.Key] {
 		match := filterRegexp.FindStringSubmatch(filterStr)
 		if match == nil {
@@ -83,13 +122,13 @@ func ReadFilters(values url.Values, opt *ReadFiltersOptions) ([]Filter, error) {
 
 // ReadRequestFilters parses a request's query string into a slice of filters.
 // This function returns nil if no filters are found.
-func ReadRequestFilters(req *http.Request, opt *ReadFiltersOptions) ([]Filter, error) {
+func ReadRequestFilters(req *http.Request, opt *ReadFiltersOptions) (Filters, error) {
 	return ReadFilters(req.URL.Query(), opt)
 }
 
 // ReadStringFilters parses a query string literal into a slice of filters.
 // This function returns nil if no filters are found.
-func ReadStringFilters(qs string, opt *ReadFiltersOptions) ([]Filter, error) {
+func ReadStringFilters(qs string, opt *ReadFiltersOptions) (Filters, error) {
 	values, err := url.ParseQuery(qs)
 	if err != nil {
 		return nil, err

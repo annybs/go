@@ -27,15 +27,54 @@ type Sort struct {
 	Direction string `json:"direction"` // Direction in which to sort, namely asc or desc.
 }
 
+// Sorts is a slice of Sort structs.
+type Sorts []Sort
+
+// Field returns a new Sorts slice containing only sorts for the specified field.
+// The original order of sorts is preserved.
+func (sorts Sorts) Field(field string) Sorts {
+	ff := Sorts{}
+	for _, sort := range sorts {
+		if sort.Field == field {
+			ff = append(ff, sort)
+		}
+	}
+	return ff
+}
+
+// Fields returns a new Sorts slice containing sorts for any of the specified fields.
+// The original order of sorts is preserved.
+func (sorts Sorts) Fields(fields ...string) Sorts {
+	ff := Sorts{}
+	for _, sort := range sorts {
+		for _, field := range fields {
+			if sort.Field == field {
+				ff = append(ff, sort)
+			}
+		}
+	}
+	return ff
+}
+
+// HasField returns true if the Sorts slice includes any sorts for the specified field.
+func (sorts Sorts) HasField(field string) bool {
+	for _, sort := range sorts {
+		if sort.Field == field {
+			return true
+		}
+	}
+	return false
+}
+
 // ReadRequestSorts parses a request's query string into a slice of sorts.
 // This function returns nil if no sorts are found.
-func ReadRequestSorts(req *http.Request, opt *ReadSortsOptions) ([]Sort, error) {
+func ReadRequestSorts(req *http.Request, opt *ReadSortsOptions) (Sorts, error) {
 	return ReadSorts(req.URL.Query(), opt)
 }
 
 // ReadSorts parses URL values into a slice of sorts.
 // This function returns nil if no sorts are found.
-func ReadSorts(values url.Values, opt *ReadSortsOptions) ([]Sort, error) {
+func ReadSorts(values url.Values, opt *ReadSortsOptions) (Sorts, error) {
 	opt = initSortsOptions(opt)
 
 	if !values.Has(opt.Key) {
@@ -65,7 +104,7 @@ func ReadSorts(values url.Values, opt *ReadSortsOptions) ([]Sort, error) {
 
 // ReadStringSorts parses a query string literal into a slice of sorts.
 // This function returns nil if no sorts are found.
-func ReadStringSorts(qs string, opt *ReadSortsOptions) ([]Sort, error) {
+func ReadStringSorts(qs string, opt *ReadSortsOptions) (Sorts, error) {
 	values, err := url.ParseQuery(qs)
 	if err != nil {
 		return nil, err

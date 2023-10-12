@@ -15,8 +15,8 @@ var (
 
 var sortRegexp = regexp.MustCompile("^([A-z0-9]+) (asc|desc)$")
 
-// ReadSortOptions configures the behaviour of ReadSorts.
-type ReadSortOptions struct {
+// ReadSortsOptions configures the behaviour of ReadSorts.
+type ReadSortsOptions struct {
 	Key      string // Query string key. The default value is "sort"
 	MaxSorts int    // If this is > 0, a maximum number of sorts is imposed
 }
@@ -29,14 +29,14 @@ type Sort struct {
 
 // ReadRequestSorts parses a request's query string into a slice of sorts.
 // This function returns nil if no sorts are found.
-func ReadRequestSorts(req *http.Request, opt *ReadSortOptions) ([]Sort, error) {
+func ReadRequestSorts(req *http.Request, opt *ReadSortsOptions) ([]Sort, error) {
 	return ReadSorts(req.URL.Query(), opt)
 }
 
 // ReadSorts parses URL values into a slice of sorts.
 // This function returns nil if no sorts are found.
-func ReadSorts(values url.Values, opt *ReadSortOptions) ([]Sort, error) {
-	opt = initSortOptions(opt)
+func ReadSorts(values url.Values, opt *ReadSortsOptions) ([]Sort, error) {
+	opt = initSortsOptions(opt)
 
 	if !values.Has(opt.Key) {
 		return nil, nil
@@ -65,7 +65,7 @@ func ReadSorts(values url.Values, opt *ReadSortOptions) ([]Sort, error) {
 
 // ReadStringSorts parses a query string literal into a slice of sorts.
 // This function returns nil if no sorts are found.
-func ReadStringSorts(qs string, opt *ReadSortOptions) ([]Sort, error) {
+func ReadStringSorts(qs string, opt *ReadSortsOptions) ([]Sort, error) {
 	values, err := url.ParseQuery(qs)
 	if err != nil {
 		return nil, err
@@ -73,8 +73,8 @@ func ReadStringSorts(qs string, opt *ReadSortOptions) ([]Sort, error) {
 	return ReadSorts(values, opt)
 }
 
-func initSortOptions(opt *ReadSortOptions) *ReadSortOptions {
-	def := &ReadSortOptions{
+func initSortsOptions(opt *ReadSortsOptions) *ReadSortsOptions {
+	def := &ReadSortsOptions{
 		Key: "sort",
 	}
 

@@ -5,7 +5,7 @@ import "testing"
 func TestReadFilters(t *testing.T) {
 	type TestCase struct {
 		Input  string
-		Opt    *ReadFilterOptions
+		Opt    *ReadFiltersOptions
 		Output []Filter
 		Err    error
 	}

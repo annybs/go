@@ -5,7 +5,7 @@ import "testing"
 func TestReadSorts(t *testing.T) {
 	type TestCase struct {
 		Input  string
-		Opt    *ReadSortOptions
+		Opt    *ReadSortsOptions
 		Output []Sort
 		Err    error
 	}

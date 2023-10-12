@@ -44,16 +44,16 @@ func (filter Filter) IntValue() (int, error) {
 	return strconv.Atoi(filter.Value)
 }
 
-// ReadFilterOptions configures the behaviour of ReadFilters.
-type ReadFilterOptions struct {
+// ReadFiltersOptions configures the behaviour of ReadFilters.
+type ReadFiltersOptions struct {
 	Key        string // Query string key. The default value is "filter"
 	MaxFilters int    // If this is > 0, a maximum number of filters is imposed
 }
 
 // ReadFilters parses URL values into a slice of filters.
 // This function returns nil if no filters are found.
-func ReadFilters(values url.Values, opt *ReadFilterOptions) ([]Filter, error) {
-	opt = initFilterOptions(opt)
+func ReadFilters(values url.Values, opt *ReadFiltersOptions) ([]Filter, error) {
+	opt = initFiltersOptions(opt)
 
 	if !values.Has(opt.Key) {
 		return nil, nil
@@ -83,13 +83,13 @@ func ReadFilters(values url.Values, opt *ReadFilterOptions) ([]Filter, error) {
 
 // ReadRequestFilters parses a request's query string into a slice of filters.
 // This function returns nil if no filters are found.
-func ReadRequestFilters(req *http.Request, opt *ReadFilterOptions) ([]Filter, error) {
+func ReadRequestFilters(req *http.Request, opt *ReadFiltersOptions) ([]Filter, error) {
 	return ReadFilters(req.URL.Query(), opt)
 }
 
 // ReadStringFilters parses a query string literal into a slice of filters.
 // This function returns nil if no filters are found.
-func ReadStringFilters(qs string, opt *ReadFilterOptions) ([]Filter, error) {
+func ReadStringFilters(qs string, opt *ReadFiltersOptions) ([]Filter, error) {
 	values, err := url.ParseQuery(qs)
 	if err != nil {
 		return nil, err
@@ -97,8 +97,8 @@ func ReadStringFilters(qs string, opt *ReadFilterOptions) ([]Filter, error) {
 	return ReadFilters(values, opt)
 }
 
-func initFilterOptions(opt *ReadFilterOptions) *ReadFilterOptions {
-	def := &ReadFilterOptions{
+func initFiltersOptions(opt *ReadFiltersOptions) *ReadFiltersOptions {
+	def := &ReadFiltersOptions{
 		Key: "filter",
 	}
 

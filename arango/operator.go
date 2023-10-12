@@ -98,6 +98,33 @@ func IsStringOperator(op string) bool {
 	return false
 }
 
+// ParseArrayOperator returns the valid AQL operator for an array operator.
+// It returns an error if the operator cannot be mapped to AQL or does not support arrays.
+func ParseArrayOperator(op string) (string, error) {
+	if !IsArrayOperator(op) {
+		return "", ErrInvalidOperator
+	}
+	return ParseOperator(op)
+}
+
+// ParseBoolOperator returns the valid AQL operator for a Boolean operator.
+// It returns an error if the operator cannot be mapped to AQL or does not support Booleans.
+func ParseBoolOperator(op string) (string, error) {
+	if !IsBoolOperator(op) {
+		return "", ErrInvalidOperator
+	}
+	return ParseOperator(op)
+}
+
+// ParseNumberOperator returns the valid AQL operator for a numeric operator.
+// It returns an error if the operator cannot be mapped to AQL or does not support numbers.
+func ParseNumberOperator(op string) (string, error) {
+	if !IsNumberOperator(op) {
+		return "", ErrInvalidOperator
+	}
+	return ParseOperator(op)
+}
+
 // ParseOperator returns the valid AQL operator for an arbitrary operator string.
 // This supports different inputs, such as Filter.Operator in github.com/recipeer/go/qs
 //
@@ -107,4 +134,13 @@ func ParseOperator(op string) (string, error) {
 		return "", ErrInvalidOperator
 	}
 	return operators[op], nil
+}
+
+// ParseStringOperator returns the valid AQL operator for a string operator.
+// It returns an error if the operator cannot be mapped to AQL or does not support strings.
+func ParseStringOperator(op string) (string, error) {
+	if !IsStringOperator(op) {
+		return "", ErrInvalidOperator
+	}
+	return ParseOperator(op)
 }

@@ -18,7 +18,7 @@ func TestReadParams(t *testing.T) {
 		},
 		{
 			Input:  "FOR doc IN @@collection FILTER doc.title == @title RETURN doc",
-			Output: []string{"collection", "title"},
+			Output: []string{"@collection", "title"},
 		},
 	}
 

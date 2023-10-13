@@ -5,7 +5,7 @@ import (
 )
 
 // https://docs.arangodb.com/3.11/aql/fundamentals/bind-parameters/#syntax
-var paramRegexp = regexp.MustCompile("@{1,2}([A-z0-9_]+)")
+var paramRegexp = regexp.MustCompile("@(@?[A-z0-9_]+)")
 
 // ReadParams reads out named parameters from an AQL string.
 func ReadParams(input string) []string {

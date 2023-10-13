@@ -28,8 +28,8 @@ func TestQueryAppend(t *testing.T) {
 FILTER doc.title == @title
 RETURN doc`,
 			ExpectedParams: map[string]any{
-				"collection": "recipes",
-				"title":      "Spaghetti",
+				"@collection": "recipes",
+				"title":       "Spaghetti",
 			},
 		},
 		// Append with too many parameters
@@ -42,8 +42,8 @@ RETURN doc`,
 FILTER doc.title == @title
 RETURN doc`,
 			ExpectedParams: map[string]any{
-				"collection": "recipes",
-				"title":      "Spaghetti",
+				"@collection": "recipes",
+				"title":       "Spaghetti",
 			},
 		},
 		// Append without parameters and bind after
@@ -52,14 +52,14 @@ RETURN doc`,
 				Append("FOR doc IN @@collection").
 				Append("FILTER doc.title == @title").
 				Append("RETURN doc").
-				Bind("collection", "recipes").
+				Bind("@collection", "recipes").
 				Bind("title", "Spaghetti"),
 			ExpectedStr: `FOR doc IN @@collection
 FILTER doc.title == @title
 RETURN doc`,
 			ExpectedParams: map[string]any{
-				"collection": "recipes",
-				"title":      "Spaghetti",
+				"@collection": "recipes",
+				"title":       "Spaghetti",
 			},
 		},
 		// Append and bind map
@@ -68,13 +68,13 @@ RETURN doc`,
 				Append("FOR doc IN @@collection").
 				Append("FILTER doc.title == @title").
 				Append("RETURN doc").
-				BindMap(map[string]any{"collection": "recipes", "title": "Spaghetti"}),
+				BindMap(map[string]any{"@collection": "recipes", "title": "Spaghetti"}),
 			ExpectedStr: `FOR doc IN @@collection
 FILTER doc.title == @title
 RETURN doc`,
 			ExpectedParams: map[string]any{
-				"collection": "recipes",
-				"title":      "Spaghetti",
+				"@collection": "recipes",
+				"title":       "Spaghetti",
 			},
 		},
 		// Append and Appendf

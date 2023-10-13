@@ -77,8 +77,15 @@ func (query *Query) Copy() *Query {
 	return newQuery
 }
 
+// String returns the query formatted across multiple lines.
 func (query *Query) String() string {
 	return strings.Join(query.Lines, "\n")
+}
+
+// StringLine returns the query formatted on a single line.
+// This reduces readability but may be more suitable for logging.
+func (query *Query) StringLine() string {
+	return strings.Join(query.Lines, " ")
 }
 
 // NewQuery creates a new, empty Query.

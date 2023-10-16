@@ -24,7 +24,7 @@ func MaxSize[T any](l int) func([]T) error {
 func MinSize[T any](l int) func([]T) error {
 	return func(value []T) error {
 		if len(value) < l {
-			return ErrTooFewChars
+			return ErrTooFewItems
 		}
 		return nil
 	}

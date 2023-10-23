@@ -1,4 +1,4 @@
-package transport
+package registry
 
 import (
 	"errors"

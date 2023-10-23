@@ -1,10 +1,11 @@
-go 1.21.2
+go 1.21.3
 
 use (
 	./arango
 	./hash
 	./qs
 	./random
+	./registry
 	./rest
 	./validate
 )

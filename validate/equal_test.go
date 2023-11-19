@@ -1,6 +1,9 @@
 package validate
 
-import "testing"
+import (
+	"errors"
+	"testing"
+)
 
 func TestEqualInt(t *testing.T) {
 	type TestCase struct {
@@ -21,7 +24,7 @@ func TestEqualInt(t *testing.T) {
 		f := Equal(tc.C)
 		err := f(tc.I)
 
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}
@@ -46,7 +49,7 @@ func TestEqualStr(t *testing.T) {
 		f := Equal(tc.C)
 		err := f(tc.I)
 
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}

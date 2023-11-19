@@ -1,6 +1,9 @@
 package validate
 
-import "testing"
+import (
+	"errors"
+	"testing"
+)
 
 func TestMaxSize(t *testing.T) {
 	type TestCase struct {
@@ -21,7 +24,7 @@ func TestMaxSize(t *testing.T) {
 		f := MaxSize[int](tc.L)
 		err := f(tc.Input)
 
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}
@@ -46,7 +49,7 @@ func TestMinSize(t *testing.T) {
 		f := MinSize[int](tc.L)
 		err := f(tc.Input)
 
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}

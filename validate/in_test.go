@@ -1,6 +1,7 @@
 package validate
 
 import (
+	"errors"
 	"testing"
 )
 
@@ -25,7 +26,7 @@ func TestInInt(t *testing.T) {
 		f := In(tc.A...)
 		err := f(tc.Input)
 
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}
@@ -52,7 +53,7 @@ func TestInString(t *testing.T) {
 		f := In(tc.A...)
 		err := f(tc.Input)
 
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}

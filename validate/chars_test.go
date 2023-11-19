@@ -1,6 +1,9 @@
 package validate
 
-import "testing"
+import (
+	"errors"
+	"testing"
+)
 
 func TestChars(t *testing.T) {
 	type TestCase struct {
@@ -22,7 +25,7 @@ func TestChars(t *testing.T) {
 		f := Chars(tc.C)
 		err := f(tc.Input)
 
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 	}

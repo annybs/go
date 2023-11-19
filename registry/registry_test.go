@@ -1,6 +1,7 @@
 package registry
 
 import (
+	"errors"
 	"testing"
 )
 
@@ -24,7 +25,7 @@ func TestRegistry(t *testing.T) {
 		t.Logf("(%d) Testing set %s=%q (lock: %t)", i, tc.Key, tc.Value, tc.Lock)
 
 		err := r.Set(tc.Key, tc.Value)
-		if err != tc.Err {
+		if !errors.Is(err, tc.Err) {
 			t.Errorf("Expected error %v, got %v", tc.Err, err)
 		}
 

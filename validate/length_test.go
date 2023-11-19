@@ -16,7 +16,7 @@ func TestMaxLength(t *testing.T) {
 		{Input: "abcd", L: 8},
 		{Input: "abcdefgh", L: 8},
 		{Input: "abcd efg", L: 8},
-		{Input: "abcdefghi", L: 8, Err: ErrTooManyChars},
+		{Input: "abcdefghi", L: 8, Err: ErrMustBeShorter},
 	}
 
 	for n, tc := range testCases {
@@ -39,7 +39,7 @@ func TestMinLength(t *testing.T) {
 	}
 
 	testCases := []TestCase{
-		{Input: "abcd", L: 8, Err: ErrTooFewChars},
+		{Input: "abcd", L: 8, Err: ErrMustBeLonger},
 		{Input: "abcdefgh", L: 8},
 		{Input: "abcd efg", L: 8},
 		{Input: "abcdefghi", L: 8},

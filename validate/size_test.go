@@ -15,7 +15,7 @@ func TestMaxSize(t *testing.T) {
 	testCases := []TestCase{
 		{Input: []int{1, 2, 3, 4}, L: 8},
 		{Input: []int{1, 2, 3, 4, 5, 6, 7, 8}, L: 8},
-		{Input: []int{1, 2, 3, 4, 5, 6, 7, 8, 9}, L: 8, Err: ErrTooManyItems},
+		{Input: []int{1, 2, 3, 4, 5, 6, 7, 8, 9}, L: 8, Err: ErrMustHaveFewerItems},
 	}
 
 	for n, tc := range testCases {
@@ -38,7 +38,7 @@ func TestMinSize(t *testing.T) {
 	}
 
 	testCases := []TestCase{
-		{Input: []int{1, 2, 3, 4}, L: 8, Err: ErrTooFewItems},
+		{Input: []int{1, 2, 3, 4}, L: 8, Err: ErrMustHaveMoreItems},
 		{Input: []int{1, 2, 3, 4, 5, 6, 7, 8}, L: 8},
 		{Input: []int{1, 2, 3, 4, 5, 6, 7, 8, 9}, L: 8},
 	}

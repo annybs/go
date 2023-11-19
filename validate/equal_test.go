@@ -15,7 +15,7 @@ func TestEqualInt(t *testing.T) {
 	testCases := []TestCase{
 		{I: 1, C: 1},
 		{I: 5 ^ 3, C: 5 ^ 3},
-		{I: 10, C: 15, Err: ErrValueNotAllowed},
+		{I: 10, C: 15, Err: ErrNotEqual},
 	}
 
 	for i, tc := range testCases {
@@ -40,7 +40,7 @@ func TestEqualStr(t *testing.T) {
 	testCases := []TestCase{
 		{I: "abc", C: "abc"},
 		{I: "def ghi 123", C: "def ghi 123"},
-		{I: "jkl", C: "mno", Err: ErrValueNotAllowed},
+		{I: "jkl", C: "mno", Err: ErrNotEqual},
 	}
 
 	for i, tc := range testCases {

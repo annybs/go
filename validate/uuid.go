@@ -1,13 +1,12 @@
 package validate
 
 import (
-	"errors"
 	"regexp"
 )
 
 // Validation error.
 var (
-	ErrInvalidUUID = errors.New("invalid UUID")
+	ErrInvalidUUID = NewError("invalid UUID")
 )
 
 var uuidRegexp = regexp.MustCompile("^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$")

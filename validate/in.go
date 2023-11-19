@@ -1,10 +1,8 @@
 package validate
 
-import "errors"
-
 // Validation error.
 var (
-	ErrValueNotAllowed = errors.New("not allowed")
+	ErrValueNotAllowed = NewError("not allowed")
 )
 
 // In validates whether a value is found in a slice of allowed values.

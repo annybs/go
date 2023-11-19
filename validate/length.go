@@ -1,20 +1,16 @@
 package validate
 
-import (
-	"errors"
-)
-
 // Validation error.
 var (
-	ErrTooFewChars  = errors.New("too few characters")
-	ErrTooManyChars = errors.New("too many characters")
+	ErrMustBeLonger  = NewError("must be at least %d characters")
+	ErrMustBeShorter = NewError("must be no more than %d characters")
 )
 
 // MaxLength validates the length of a string as being less than or equal to a given maximum.
 func MaxLength(l int) func(string) error {
 	return func(value string) error {
 		if len(value) > l {
-			return ErrTooManyChars
+			return ErrMustBeShorter.With(l)
 		}
 		return nil
 	}
@@ -24,7 +20,7 @@ func MaxLength(l int) func(string) error {
 func MinLength(l int) func(string) error {
 	return func(value string) error {
 		if len(value) < l {
-			return ErrTooFewChars
+			return ErrMustBeLonger.With(l)
 		}
 		return nil
 	}

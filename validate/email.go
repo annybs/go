@@ -1,13 +1,12 @@
 package validate
 
 import (
-	"errors"
 	"regexp"
 )
 
 // Validation error.
 var (
-	ErrInvalidEmail = errors.New("invalid email address")
+	ErrInvalidEmail = NewError("invalid email address")
 )
 
 // Based on https://stackoverflow.com/a/201378

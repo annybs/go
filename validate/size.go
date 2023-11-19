@@ -1,20 +1,16 @@
 package validate
 
-import (
-	"errors"
-)
-
 // Validation error.
 var (
-	ErrTooFewItems  = errors.New("too few items")
-	ErrTooManyItems = errors.New("too many items")
+	ErrMustHaveMoreItems  = NewError("must have at least %d items")
+	ErrMustHaveFewerItems = NewError("must have no more than %d items")
 )
 
 // MaxSize validates the length of a slice as being less than or equal to a given maximum.
 func MaxSize[T any](l int) func([]T) error {
 	return func(value []T) error {
 		if len(value) > l {
-			return ErrTooManyItems
+			return ErrMustHaveFewerItems
 		}
 		return nil
 	}
@@ -24,7 +20,7 @@ func MaxSize[T any](l int) func([]T) error {
 func MinSize[T any](l int) func([]T) error {
 	return func(value []T) error {
 		if len(value) < l {
-			return ErrTooFewItems
+			return ErrMustHaveMoreItems
 		}
 		return nil
 	}

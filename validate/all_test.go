@@ -23,8 +23,8 @@ func TestAll(t *testing.T) {
 		{Input: "abcd", F: f},
 		{Input: "abcdef", F: f},
 		{Input: "12345678", F: f},
-		{Input: "abc", F: f, Err: ErrTooFewChars},
-		{Input: "abcdef012", F: f, Err: ErrTooManyChars},
+		{Input: "abc", F: f, Err: ErrMustBeLonger},
+		{Input: "abcdef012", F: f, Err: ErrMustBeShorter},
 		{Input: "abcdefgh", F: f, Err: ErrDisallowedChars},
 		{Input: "01abcd", F: f, Err: ErrValueNotAllowed},
 	}

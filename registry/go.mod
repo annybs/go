@@ -1,3 +1,3 @@
 module github.com/recipeer/go/registry
 
-go 1.21.3
+go 1.21

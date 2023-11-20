@@ -20,3 +20,15 @@ func Chars(allow string) func(string) error {
 		return nil
 	}
 }
+
+// ExceptChars validates whether a string does not contain disallowed characters.
+func ExceptChars(disallow string) func(string) error {
+	return func(value string) error {
+		for _, r := range disallow {
+			if strings.ContainsRune(value, r) {
+				return ErrDisallowedChars
+			}
+		}
+		return nil
+	}
+}

@@ -57,10 +57,8 @@ func (query *Query) Bind(name string, value any) *Query {
 
 // BindMap assigns values to bind parameters.
 func (query *Query) BindMap(params map[string]any) *Query {
-	if params != nil {
-		for name, value := range params {
-			query.Params[name] = value
-		}
+	for name, value := range params {
+		query.Params[name] = value
 	}
 	return query
 }
@@ -68,9 +66,7 @@ func (query *Query) BindMap(params map[string]any) *Query {
 // Copy creates a copy of the query.
 func (query *Query) Copy() *Query {
 	newQuery := NewQuery()
-	for _, line := range query.Lines {
-		newQuery.Lines = append(newQuery.Lines, line)
-	}
+	newQuery.Lines = append(newQuery.Lines, query.Lines...)
 	for name, value := range query.Params {
 		newQuery.Params[name] = value
 	}

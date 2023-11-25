@@ -8,20 +8,20 @@ import (
 
 // SHA256 creates a hex-encoded SHA256 checksum for a string input.
 func SHA256(value string) string {
-	b := sha256.Sum256([]byte(value))
+	sum := sha256.Sum256([]byte(value))
 	hash := []byte{}
-	for _, byte := range b {
-		hash = append(hash, byte)
+	for _, b := range sum {
+		hash = append(hash, b)
 	}
 	return hex.EncodeToString(hash)
 }
 
 // SHA512 creates a hex-encoded SHA512 checksum for a string input.
 func SHA512(value string) string {
-	b := sha512.Sum512([]byte(value))
+	sum := sha512.Sum512([]byte(value))
 	hash := []byte{}
-	for _, byte := range b {
-		hash = append(hash, byte)
+	for _, b := range sum {
+		hash = append(hash, b)
 	}
 	return hex.EncodeToString(hash)
 }

@@ -12,10 +12,8 @@ func ReadParams(input string) []string {
 	params := []string{}
 
 	matches := paramRegexp.FindAllStringSubmatch(input, -1)
-	if matches != nil {
-		for _, match := range matches {
-			params = append(params, match[1])
-		}
+	for _, match := range matches {
+		params = append(params, match[1])
 	}
 
 	return params

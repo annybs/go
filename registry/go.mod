@@ -1,3 +1,3 @@
-module github.com/recipeer/go/registry
+module github.com/annybs/go/registry
 
 go 1.21

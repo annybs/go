@@ -1,3 +1,3 @@
-module github.com/recipeer/go/hash
+module github.com/annybs/go/hash
 
 go 1.21

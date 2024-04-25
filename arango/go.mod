@@ -1,3 +1,3 @@
-module github.com/recipeer/go/arango
+module github.com/annybs/go/arango
 
 go 1.21

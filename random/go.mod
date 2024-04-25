@@ -1,3 +1,3 @@
-module github.com/recipeer/go/random
+module github.com/annybs/go/random
 
 go 1.21

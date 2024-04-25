@@ -24,7 +24,7 @@ var (
 		"LIKE":     "LIKE",
 		"NOT LIKE": "NOT LIKE",
 
-		// Compatible with Filter.Operator in github.com/recipeer/go/qs
+		// Compatible with Filter.Operator in github.com/annybs/go/qs
 		"eq":       "==",
 		"neq":      "!=",
 		"gt":       ">",
@@ -107,7 +107,7 @@ func ParseNumberOperator(op string) (string, error) {
 }
 
 // ParseOperator returns the valid AQL operator for an arbitrary operator string.
-// This supports different inputs, such as Filter.Operator in github.com/recipeer/go/qs
+// This supports different inputs, such as Filter.Operator in github.com/annybs/go/qs
 //
 // If the input operator cannot be mapped to AQL, this function returns ErrInvalidOperator.
 func ParseOperator(op string) (string, error) {
